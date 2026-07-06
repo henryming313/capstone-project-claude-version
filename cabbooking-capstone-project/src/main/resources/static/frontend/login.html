@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录 · Cab Booking System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="logo"><span class="badge">🚖 CENTRIA CAPSTONE</span></div>
+      <h1>Cab Booking System</h1>
+      <div class="sub">登录你的账号 · Kokkola 本地打车平台</div>
+
+      <form id="loginForm">
+        <label>用户名 Username</label>
+        <input type="text" id="username" required autocomplete="username">
+
+        <label>密码 Password</label>
+        <input type="password" id="password" required autocomplete="current-password">
+
+        <div class="btn-row">
+          <button type="submit" class="btn-primary" style="width:100%">登录 Log in</button>
+        </div>
+        <div class="error-text" id="msg"></div>
+      </form>
+
+      <div class="switch-link">还没有账号？ <a href="register.html">立即注册</a></div>
+      <div class="helper-text" style="text-align:center;margin-top:14px">
+        测试账号： admin/admin123 · rider1/rider123 · driver1/driver123
+      </div>
+    </div>
+  </div>
+
+<script src="vendor/axios/axios.min.js"></script>
+<script src="js/api.js"></script>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+
+  try {
+    const res = await api.post('/auth/login', { username, password });
+    Session.save(res.data);
+    const role = res.data.role;
+    if (role === 'RIDER') window.location.href = 'rider.html';
+    else if (role === 'DRIVER') window.location.href = 'driver.html';
+    else window.location.href = 'admin.html';
+  } catch (err) {
+    showMessage(msg, err.message);
+  }
+});
+</script>
+</body>
+</html>

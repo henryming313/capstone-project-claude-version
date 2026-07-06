@@ -1,0 +1,19 @@
+package com.centria.cabbooking.repository;
+
+import com.centria.cabbooking.common.enums.Role;
+import com.centria.cabbooking.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    Optional<User> findByUsername(String username);
+
+    boolean existsByUsername(String username);
+
+    boolean existsByPhone(String phone);
+
+    List<User> findByRole(Role role);
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注册 · Cab Booking System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="logo"><span class="badge">🚖 CENTRIA CAPSTONE</span></div>
+      <h1>创建账号</h1>
+      <div class="sub">选择你的角色并完成注册</div>
+
+      <form id="registerForm">
+        <label>用户名 Username</label>
+        <input type="text" id="username" required minlength="3" maxlength="50">
+
+        <label>密码 Password</label>
+        <input type="password" id="password" required minlength="6">
+
+        <label>手机号 Phone</label>
+        <input type="text" id="phone" placeholder="+358 40 000 0000">
+
+        <label>角色 Role</label>
+        <select id="role" required>
+          <option value="RIDER">乘客 Rider</option>
+          <option value="DRIVER">司机 Driver</option>
+          <option value="ADMIN">管理员 Admin</option>
+        </select>
+
+        <div class="btn-row">
+          <button type="submit" class="btn-primary" style="width:100%">注册 Register</button>
+        </div>
+        <div class="error-text" id="msg"></div>
+      </form>
+
+      <div class="switch-link">已有账号？ <a href="login.html">返回登录</a></div>
+    </div>
+  </div>
+
+<script src="vendor/axios/axios.min.js"></script>
+<script src="js/api.js"></script>
+<script>
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+
+  const payload = {
+    username: document.getElementById('username').value.trim(),
+    password: document.getElementById('password').value,
+    phone: document.getElementById('phone').value.trim() || null,
+    role: document.getElementById('role').value
+  };
+
+  try {
+    await api.post('/auth/register', payload);
+    window.location.href = 'login.html';
+  } catch (err) {
+    showMessage(msg, err.message);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>乘客 · Cab Booking System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="topbarSlot"></div>
+
+  <div class="container">
+    <div class="grid cols-2">
+
+      <div class="card">
+        <h2>预约行程 · Book a Ride</h2>
+        <form id="bookForm">
+          <label>起点 Start location</label>
+          <select id="startLocation" required></select>
+
+          <label>终点 End location</label>
+          <select id="endLocation" required></select>
+
+          <div id="fareBox" class="helper-text" style="margin-top:14px;font-size:13px"></div>
+
+          <div id="map"></div>
+
+          <div class="btn-row">
+            <button type="button" id="estimateBtn" class="btn-outline">预估车费</button>
+            <button type="submit" class="btn-primary">发起行程 Book</button>
+          </div>
+          <div class="error-text" id="bookMsg"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>我的行程 · Trip History</h2>
+        <div id="tripsTableWrap">
+          <div class="empty-state">加载中...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Rating modal (simple inline card, shown/hidden) -->
+  <div id="ratingOverlay" style="display:none;position:fixed;inset:0;background:rgba(18,33,63,0.45);align-items:center;justify-content:center;">
+    <div class="card" style="width:340px">
+      <h2>为本次行程评分</h2>
+      <div class="rating-stars" id="starPicker">
+        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+      </div>
+      <label>评论 (可选)</label>
+      <textarea id="ratingComment" rows="3"></textarea>
+      <div class="btn-row">
+        <button class="btn-outline" onclick="closeRatingModal()">取消</button>
+        <button class="btn-primary" onclick="submitRating()">提交评分</button>
+      </div>
+      <div class="error-text" id="ratingMsg"></div>
+    </div>
+  </div>
+
+<script src="vendor/axios/axios.min.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="js/api.js"></script>
+<script src="js/rider.js"></script>
+</body>
+</html>

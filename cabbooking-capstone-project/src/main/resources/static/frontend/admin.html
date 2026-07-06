@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理后台 · Cab Booking System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="topbarSlot"></div>
+
+  <div class="container">
+
+    <div class="card" style="margin-bottom:20px">
+      <h2>用户管理 · Users</h2>
+      <div id="usersWrap"><div class="empty-state">加载中...</div></div>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h2>新增车辆 · Add Cab</h2>
+        <form id="cabForm">
+          <label>车牌号 License plate</label>
+          <input type="text" id="licensePlate" required>
+          <label>车型 Model</label>
+          <input type="text" id="model" required>
+          <div class="btn-row"><button type="submit" class="btn-primary">新增车辆</button></div>
+          <div class="error-text" id="cabMsg"></div>
+        </form>
+
+        <h2 style="margin-top:22px">分配车辆给司机</h2>
+        <label>车辆 Cab</label>
+        <select id="assignCabSelect"></select>
+        <label>司机 Driver</label>
+        <select id="assignDriverSelect"></select>
+        <div class="btn-row"><button type="button" class="btn-primary" onclick="assignCab()">分配</button></div>
+        <div class="error-text" id="assignMsg"></div>
+      </div>
+
+      <div class="card">
+        <h2>车辆列表 · Cabs</h2>
+        <div id="cabsWrap"><div class="empty-state">加载中...</div></div>
+      </div>
+    </div>
+  </div>
+
+<script src="vendor/axios/axios.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
